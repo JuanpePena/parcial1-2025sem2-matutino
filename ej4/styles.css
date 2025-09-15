@@ -1,0 +1,11 @@
+.user {
+    display: flex;
+    align-items: row;
+    margin-top: 50px;
+}
+.info {
+    right: 0;
+}
+.buttons {
+    left: 0;
+}

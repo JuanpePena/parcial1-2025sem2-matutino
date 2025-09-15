@@ -35,6 +35,21 @@ const biblioteca = { ...bibliotecaData };
  */
 function prestarLibro(idLibro, idEstudiante, fechaPrestamo) {
   // Tu código aquí
+  if (!biblioteca.libros.some(libro => libro.idLibro === idLibro)){
+    return "El libro no existe"
+  }
+  let libro = biblioteca.libros.find(libro => libro.idLibro === idLibro)
+  if (biblioteca.libros.disponible[libro] === false){
+    return "El libro no está disponible"
+  }
+  if (!biblioteca.estudiantes.some(estudiante => estudiante.idEstudiante === idEstudiante)){
+    return "El estudiante no existe"
+  }
+  let estudiante = biblioteca.estudiantes.find(estudiante => estudiante.idEstudiante === idEstudiante)
+  libro.disponible = false
+  libro.prestamos.push({estudiante: estudiante.nombre, fechaPrestamo: fechaPrestamo, fechaDevolucion: null})
+  estudiante.librosActuales += 1
+  return true
 }
 
 
@@ -50,18 +65,48 @@ function prestarLibro(idLibro, idEstudiante, fechaPrestamo) {
 function buscarLibros(criterios) {
   // Tu código aquí
   // Ejemplo de criterios: {titulo: "javascript", disponible: true}
+  
+
+  let resultados = []
+  for (let libro of biblioteca.libros) {
+    let agregar = true
+    //Coincidencia titulo
+    if (criterios.titulo && !libro.titulo.toLowerCase().includes(criterios.titulo.toLowerCase())){
+      agregar = false
+    }
+    //Coincidencia autor
+    if (criterios.autor && !libro.autor.toLowerCase().includes(criterios.autor.toLowerCase())){
+      agregar = false
+    }
+    //Coincidencia disponibilidad
+    if (criterios.disponible != null && libro.disponible != criterios.disponible){
+      agregar = false
+    }
+    //Coincidencia categoria
+    if (criterios.categoria && !libro.categoria.toLowerCase().includes(criterios.categoria.toLowerCase())){
+      agregar = false
+    }
+    //Coincidencia anio
+    if (criterios.anio && libro.anio != criterios.anio) {
+      agregar = false
+    }
+    if (agregar) {
+      resultados.push(libro)
+    }
+  }
+  return resultados
 }
 
 
 // ALGUNOS CASOS DE PRUEBA
 // Descomentar para probar tu implementación
 
-/*
+
 console.log("Probando préstamo de libro:");
 console.log(prestarLibro(1, 3, "2025-09-13"));
 
 console.log("\nBuscando libros de programación disponibles:");
 console.log(buscarLibros({categoria: "Programación", disponible: true}));
 
-*/
+
 

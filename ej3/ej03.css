@@ -30,6 +30,9 @@ body {
   /* on */
   position: absolute;
 }
+.hiden {
+  background: #020202;
+}
 
 /* Diseño de los 7 segmentos. Por favor no modificar*/
 #seg-a {

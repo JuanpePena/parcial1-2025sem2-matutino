@@ -2,6 +2,7 @@
 <html>
   <head>
     <title>Ejercicio 4</title>
+    <script src="script.js" defer></script>
   </head>
   <body>
     <input name="name" placeholder="Name" required />
@@ -11,8 +12,20 @@
       <option>Editor</option>
       <option>Viewer</option>
     </select>
-    <button id="add">Add</button>
+    <button id="add" onclick="addUser()">Add</button>
 
-    <ul id="users"></ul>
+    <ul id="users">
+        <li id="ejemplo" class="user">
+          <div class="info">
+          <p>Nombre</p>
+          <p>Role</p>
+          <p>Email</p>
+          </div>
+          <div class="buttons">
+            <span><button>Promote</button><button>Demote</button></span>
+            <button>Delete</button>
+          </div>
+        </li>
+    </ul>
   </body>
 </html>
